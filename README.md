@@ -48,6 +48,10 @@ O build usa caminhos relativos e funciona tanto na raiz de um domínio quanto em
 
 Não publique o `index.html` da raiz do repositório: ele depende do servidor de desenvolvimento para executar o TypeScript. O cPanel recebe os arquivos já compilados de `dist/`; não precisa executar Node.js.
 
+O pacote pronto está em `downloads/agencia-v3-cpanel.zip`. Para regenerá-lo, execute `npm run package:cpanel` (requer Python 3 somente na máquina que empacota). O script inclui permissões Unix explícitas: pastas `755` e arquivos `644`, independentemente das permissões dos arquivos de origem. Verifique o pacote com `python3 -m unittest discover -s tests -p 'test_cpanel_package.py'`.
+
+Se a hospedagem apresentar erro 403 após extrair um pacote antigo, confira no gerenciador de arquivos do cPanel as permissões da pasta `aulademo` e de `assets` (`755`), de `index.html`, JavaScript, CSS e fontes (`644`). Confira também que `index.html` está diretamente dentro de `aulademo`. Não é necessário usar permissão `777`.
+
 ## Prévia sem servidor
 
 Abra `preview.html` para visualizar a landing page diretamente no navegador ou em um visualizador de HTML com JavaScript permitido. Esse arquivo incorpora o JavaScript compilado, o CSS, as fontes e o ícone; não depende do Vite nem de caminhos locais de recursos.
