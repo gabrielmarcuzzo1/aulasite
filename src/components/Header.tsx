@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { useReducedMotion } from "../hooks/useReducedMotion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { Brand } from "./UI";
 
@@ -13,7 +12,6 @@ const links = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const reduced = useReducedMotion();
   useEffect(() => {
     if (!open) return;
     const close = (event: KeyboardEvent) => {
@@ -69,7 +67,7 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: reduced ? 0 : 0.25 }}
+            transition={{ duration: 0.25 }}
           >
             {links.map(([label, href]) => (
               <a href={href} key={href} onClick={() => setOpen(false)}>

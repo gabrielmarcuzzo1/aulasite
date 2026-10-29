@@ -1,5 +1,4 @@
 import { motion } from "motion/react";
-import { useReducedMotion } from "../hooks/useReducedMotion";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -50,8 +49,7 @@ export function Reveal({
   className?: string;
   delay?: number;
 }) {
-  const reduced = useReducedMotion();
-  const enabled = !reduced && typeof IntersectionObserver !== "undefined";
+  const enabled = typeof IntersectionObserver !== "undefined";
   const visible = { opacity: 1, y: 0, filter: "blur(0px)" };
   return (
     <motion.div

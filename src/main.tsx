@@ -9,7 +9,7 @@ import SmoothScroll from "./components/SmoothScroll";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <MotionConfig reducedMotion="user">
+    <MotionConfig reducedMotion="never">
       <SmoothScroll />
       <App />
     </MotionConfig>

@@ -1,5 +1,4 @@
 import { motion, useScroll, useTransform } from "motion/react";
-import { useReducedMotion } from "./hooks/useReducedMotion";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -151,13 +150,10 @@ const questions = [
 ];
 
 function Hero() {
-  const reduced = useReducedMotion();
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 900], [0, reduced ? 0 : 100]);
+  const y = useTransform(scrollY, [0, 900], [0, 100]);
   const entrance = (delay: number) => ({
-    initial: reduced
-      ? (false as const)
-      : { opacity: 0, y: 20, filter: "blur(5px)" },
+    initial: { opacity: 0, y: 20, filter: "blur(5px)" },
     animate: { opacity: 1, y: 0, filter: "blur(0px)" },
     transition: { duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] as const },
   });

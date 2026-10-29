@@ -1,19 +1,15 @@
 import { useEffect } from "react";
-import { useReducedMotion } from "../hooks/useReducedMotion";
 import Lenis from "lenis";
 
 export default function SmoothScroll() {
-  const reduced = useReducedMotion();
-
   useEffect(() => {
-    const lenis = reduced
-      ? null
-      : new Lenis({
-          autoRaf: true,
-          lerp: 0.085,
-          smoothWheel: true,
-          syncTouch: false,
-        });
+    const lenis = new Lenis({
+      autoRaf: true,
+      lerp: 0.085,
+      smoothWheel: true,
+      syncTouch: false,
+      respectReducedMotion: false,
+    });
 
     const pendingFrames = new Set<number>();
 
@@ -56,17 +52,12 @@ export default function SmoothScroll() {
           target.focus({ preventScroll: true });
         };
 
-        if (lenis) {
-          lenis.scrollTo(target, {
-            duration: 1.15,
-            lerp: 0,
-            easing: (progress) => 1 - Math.pow(1 - progress, 4),
-            onComplete: focusTarget,
-          });
-        } else {
-          target.scrollIntoView({ behavior: "instant" });
-          focusTarget();
-        }
+        lenis.scrollTo(target, {
+          duration: 1.15,
+          lerp: 0,
+          easing: (progress) => 1 - Math.pow(1 - progress, 4),
+          onComplete: focusTarget,
+        });
       });
       pendingFrames.add(frame);
     }
@@ -75,9 +66,9 @@ export default function SmoothScroll() {
     return () => {
       document.removeEventListener("click", navigate);
       pendingFrames.forEach((frame) => window.cancelAnimationFrame(frame));
-      lenis?.destroy();
+      lenis.destroy();
     };
-  }, [reduced]);
+  }, []);
 
   return null;
 }

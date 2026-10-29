@@ -85,15 +85,17 @@ test("os CTAs mantêm navegação suave até o formulário", async ({ page }) =>
   await expect(page.getByLabel("Nome", { exact: true })).toBeInViewport();
 });
 
-test("a preferência por movimento reduzido desativa a inércia e mostra os blocos", async ({
+test("os efeitos continuam ativos no desktop mesmo com redução de movimento no Windows", async ({
   page,
 }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   const card = page.locator(".service-grid > .reveal").first();
   await expect(card).toHaveCSS("opacity", "0");
   await expect(page.locator("html")).toHaveClass(/lenis/);
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await expect(page.locator("html")).not.toHaveClass(/lenis/);
+  await checkInertia(page, page);
+  await expect(card).toHaveCSS("opacity", "0");
+  await page.locator("#solucoes").scrollIntoViewIfNeeded();
   await expect(card).toHaveCSS("opacity", "1");
   await page.locator(".header-cta").click();
   await expect(page.getByLabel("Nome", { exact: true })).toBeInViewport();
