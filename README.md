@@ -23,6 +23,20 @@ npm test
 
 O build executa a verificação de tipos e produz a pasta `dist/`, que pode ser publicada em qualquer hospedagem de arquivos estáticos. Para verificar o build localmente, use `npm run preview -- --port 4175`.
 
+## Publicação na Vercel
+
+`vercel.json` configura `npm ci`, `npm run build` e a saída `dist/`. O projeto da Vercel precisa usar este repositório, a branch `main` e a raiz do checkout. O HTML é revalidado a cada acesso; os recursos com hash continuam usando o cache da plataforma.
+
+Cada build da Vercel inclui uma meta tag `v3-build` com os 12 primeiros caracteres de `VERCEL_GIT_COMMIT_SHA`, permitindo identificar qual commit foi publicado. Builds locais usam o identificador `local`.
+
+Depois do deploy, é possível executar o teste de produção contra o endereço público:
+
+```bash
+PUBLISHED_SITE_URL=https://aulasite-mu.vercel.app/ npm test -- tests/production.spec.ts
+```
+
+Esse teste verifica o carregamento dos assets compilados, a inicialização da rolagem e a entrada de um card na tela. O ambiente que executa o teste precisa ter acesso de rede ao endereço publicado.
+
 ## Prévia sem servidor
 
 Abra `preview.html` para visualizar a landing page diretamente no navegador ou em um visualizador de HTML com JavaScript permitido. Esse arquivo incorpora o JavaScript compilado, o CSS, as fontes e o ícone; não depende do Vite nem de caminhos locais de recursos.
