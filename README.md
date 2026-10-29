@@ -23,6 +23,14 @@ npm test
 
 O build executa a verificação de tipos e produz a pasta `dist/`, que pode ser publicada em qualquer hospedagem de arquivos estáticos. Para verificar o build localmente, use `npm run preview -- --port 4175`.
 
+## Prévia sem servidor
+
+Abra `preview.html` para visualizar a landing page diretamente no navegador ou em um visualizador de HTML com JavaScript permitido. Esse arquivo incorpora o JavaScript compilado, o CSS, as fontes e o ícone; não depende do Vite nem de caminhos locais de recursos.
+
+O `index.html` da raiz é a entrada de desenvolvimento do Vite e precisa do servidor para transformar o TypeScript e resolver os módulos. Para a prévia de arquivo, use `preview.html`.
+
+O comando `npm run build` regenera `preview.html` a partir do código atual. O arquivo fica versionado para permitir a visualização logo após clonar o repositório. Edite os arquivos de `src/` e regenere o build, em vez de editar esse HTML gerado manualmente.
+
 Os testes Playwright cobrem a ordem das seções, CTAs, navegação mobile, FAQ por teclado, validação do formulário, estados de erro e sucesso de uma integração simulada, seis larguras de tela e verificação automática de acessibilidade com axe. Usam o Chromium de `/usr/bin/chromium` quando disponível; em outra máquina, execute `npx playwright install chromium` ou defina `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`.
 
 ## Formulário: integração pendente
