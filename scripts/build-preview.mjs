@@ -85,30 +85,6 @@ html = await replaceAsync(
 );
 
 const output = resolve(root, "preview.html");
-// A srcdoc document inherits its parent's base URL. Keep in-page links inside
-// the preview rather than letting the iframe navigate to the parent's URL.
-function preserveEmbeddedAnchors() {
-  if (window.location.protocol !== "about:") return;
-  document.addEventListener("click", (event) => {
-    if (!(event.target instanceof Element)) return;
-    const anchor = event.target.closest('a[href^="#"]');
-    if (!anchor) return;
-    const target = document.getElementById(
-      anchor.getAttribute("href").slice(1),
-    );
-    if (!target) return;
-    event.preventDefault();
-    target.scrollIntoView({
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "auto"
-        : "smooth",
-    });
-  });
-}
-html = html.replace(
-  "</body>",
-  `<script>(${preserveEmbeddedAnchors.toString()})();</script></body>`,
-);
 await writeFile(
   output,
   `<!-- Gerado por npm run build. Edite src/, não este arquivo. -->\n${html}`,

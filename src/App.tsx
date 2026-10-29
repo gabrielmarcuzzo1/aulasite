@@ -1,9 +1,5 @@
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { useReducedMotion } from "./hooks/useReducedMotion";
 import {
   ArrowDown,
   ArrowUpRight,

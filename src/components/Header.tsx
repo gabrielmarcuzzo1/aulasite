@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useReducedMotion } from "../hooks/useReducedMotion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { Brand } from "./UI";
 

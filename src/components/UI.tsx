@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { useReducedMotion } from "../hooks/useReducedMotion";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -50,17 +51,20 @@ export function Reveal({
   delay?: number;
 }) {
   const reduced = useReducedMotion();
+  const enabled = !reduced && typeof IntersectionObserver !== "undefined";
+  const visible = { opacity: 1, y: 0, filter: "blur(0px)" };
   return (
     <motion.div
-      className={className}
-      initial={false}
-      whileInView={
-        reduced
-          ? undefined
-          : { opacity: [0, 1], y: [24, 0], filter: ["blur(4px)", "blur(0px)"] }
-      }
-      viewport={{ once: true, amount: 0.12 }}
-      transition={{ duration: 0.75, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={`reveal ${className}`}
+      initial={enabled ? { opacity: 0, y: 36, filter: "blur(6px)" } : false}
+      animate={enabled ? undefined : visible}
+      whileInView={enabled ? visible : undefined}
+      viewport={{ once: true, amount: 0.18, margin: "0px 0px -48px 0px" }}
+      transition={{
+        duration: enabled ? 0.9 : 0,
+        delay: enabled ? delay : 0,
+        ease: [0.22, 1, 0.36, 1],
+      }}
     >
       {children}
     </motion.div>

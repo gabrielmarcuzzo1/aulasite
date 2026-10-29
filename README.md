@@ -62,7 +62,8 @@ O telefone `(00) 00000-0000` foi mantido conforme a copy e precisa ser atualizad
 
 - `src/App.tsx`: seções e textos, na ordem da copy.
 - `src/components/`: navegação, componentes visuais, animações e formulário.
+- `src/components/SmoothScroll.tsx`: rolagem com inércia via Lenis e navegação por âncoras, inclusive na prévia isolada.
 - `src/styles.css`: tokens, layout, estados de interação e responsividade.
 - `tests/landing.spec.ts`: testes de navegador.
 
-A fonte Geist é servida localmente. A malha da hero é SVG gerado em código, sem imagem da referência ou dependência de WebGL. As animações respeitam `prefers-reduced-motion`, e as seções permanecem visíveis caso a animação de entrada não seja acionada.
+A fonte Geist é servida localmente. A malha da hero é SVG gerado em código, sem imagem da referência ou dependência de WebGL. Títulos e blocos entram uma vez ao chegar à tela, com fade, deslocamento e redução de blur; os grupos usam entradas escalonadas. A rolagem por mouse/trackpad desacelera com Lenis; o toque usa a inércia nativa do dispositivo. As animações e a inércia extra são desativadas quando `prefers-reduced-motion` está ativo. Sem suporte a IntersectionObserver, os blocos ficam visíveis.
