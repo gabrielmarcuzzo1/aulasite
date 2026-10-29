@@ -35,5 +35,10 @@ export default defineConfig({
       url: "http://127.0.0.1:4175",
       reuseExistingServer: !process.env.CI,
     },
+    {
+      command: "node tests/static-server.mjs",
+      url: "http://127.0.0.1:4176/aulademo/",
+      reuseExistingServer: !process.env.CI,
+    },
   ],
 });

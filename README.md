@@ -37,6 +37,17 @@ PUBLISHED_SITE_URL=https://aulasite-mu.vercel.app/ npm test -- tests/production.
 
 Esse teste verifica o carregamento dos assets compilados, a inicialização da rolagem e a entrada de um card na tela. O ambiente que executa o teste precisa ter acesso de rede ao endereço publicado.
 
+## cPanel e subpastas
+
+O build usa caminhos relativos e funciona tanto na raiz de um domínio quanto em pastas como `public_html/aulademo/`.
+
+1. Execute `npm ci` e `npm run build` na máquina de desenvolvimento.
+2. Envie **o conteúdo de `dist/`** para `public_html/aulademo/`: `index.html`, `favicon.svg` e a pasta `assets/`.
+3. Confirme que o arquivo está em `public_html/aulademo/index.html`, sem uma pasta `dist` intermediária.
+4. Abra `https://authmedia.com.br/aulademo/` e atualize o navegador sem cache.
+
+Não publique o `index.html` da raiz do repositório: ele depende do servidor de desenvolvimento para executar o TypeScript. O cPanel recebe os arquivos já compilados de `dist/`; não precisa executar Node.js.
+
 ## Prévia sem servidor
 
 Abra `preview.html` para visualizar a landing page diretamente no navegador ou em um visualizador de HTML com JavaScript permitido. Esse arquivo incorpora o JavaScript compilado, o CSS, as fontes e o ícone; não depende do Vite nem de caminhos locais de recursos.

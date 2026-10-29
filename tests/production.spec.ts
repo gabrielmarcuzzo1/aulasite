@@ -23,7 +23,10 @@ test("o site de produção carrega a versão compilada com os efeitos ativos", a
     "content",
     /^(local|[a-f0-9]{12})$/,
   );
-  await expect(page.locator('script[src^="/assets/"]')).toHaveCount(1);
+  await expect(page.locator("script[src]")).toHaveAttribute(
+    "src",
+    /^(?:\.\/|\/)assets\/.+\.js$/,
+  );
   await expect(page.locator("html")).toHaveClass(/lenis/);
   const card = page.locator(".service-grid > .reveal").first();
   await expect(card).toHaveCSS("opacity", "0");
